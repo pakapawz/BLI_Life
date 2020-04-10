@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <Button
+        android:id="@+id/button_shuttle"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/textView_greeting2"
+        android:layout_marginTop="100dp"
+        android:layout_marginLeft="75dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Shuttle" />
+
+    <Button
+        android:id="@+id/button_fasting"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/textView_greeting2"
+        android:layout_toRightOf="@id/button_shuttle"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Fasting" />
+
+    <Button
+        android:id="@+id/button_other"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/button_fasting"
+        android:layout_toRightOf="@id/button_account"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Other"/>
+
+    <Button
+        android:id="@+id/button_account"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/button_shuttle"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="75dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Account" />
+
+    <TextView
+        android:id="@+id/textView_greeting1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome, John Doe!"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="#103B5E" />
+
+    <TextView
+        android:id="@+id/textView_greeting2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_greeting1"
+        android:text="What would you like to to today?"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#496881" />
+</RelativeLayout>
