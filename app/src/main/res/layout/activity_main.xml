@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/imageView_icon"
         android:layout_width="match_parent"
-        android:layout_height="346dp"
+        android:layout_height="228dp"
         app:srcCompat="@drawable/ic_launcher_foreground"
         tools:ignore="VectorDrawableCompat" />
 
