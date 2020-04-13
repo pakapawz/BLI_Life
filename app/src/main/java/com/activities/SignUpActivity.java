@@ -14,4 +14,9 @@ public class SignUpActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Sign Up");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    @Override
+    public void onBackPressed() {
+        //disables back button
+    }
 }

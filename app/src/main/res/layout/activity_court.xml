@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoomActivity">
+
+
+    <TextView
+        android:id="@+id/textView_chooseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choose Date"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    <TextView
+        android:id="@+id/textView_dateChosen"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView_chooseDate"
+        android:layout_alignBottom="@id/textView_chooseDate"
+        android:layout_marginLeft="20dp"
+        android:text="(choose date)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+    <Button
+        android:id="@+id/button_date"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/textView_dateChosen"
+        android:layout_alignLeft="@id/textView_dateChosen"
+        android:background="@drawable/button_rounded_accent"
+        android:text="choose date"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FFFFFF" />
+
+
+    <Button
+        android:id="@+id/button_reserve"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_dateChosen"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/button_rounded_green"
+        android:text="Reserve"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF" />
+    <TextView
+        android:id="@+id/textView_warning"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="this action cannot be undone"
+        android:layout_below="@id/button_reserve"
+        android:layout_centerHorizontal="true"
+        android:textColor="#F44336" />
+
+    <TextView
+        android:id="@+id/textView_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_date"
+        android:layout_alignLeft="@id/button_date"
+        android:layout_marginTop="10dp"
+        android:text="Note:\n Room is only available for\n reservation from 5 p.m.\n to 9 p.m."
+        android:textColor="#80000000" />
+</RelativeLayout>

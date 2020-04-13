@@ -6,10 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".OtherActivity">
 
-    <TextView
-        android:id="@+id/textView_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OTHER"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+    <Button
+        android:id="@+id/button_music"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_rounded_accent"
+        android:layout_below="@id/button_room"
+        android:text="Musical Instrument Reservation"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_room"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/button_rounded_accent"
+        android:text="Room Reservation"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_court"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_rounded_accent"
+        android:layout_toRightOf="@id/button_room"
+        android:text="Court Reservation"
+        android:textColor="#FFFFFF" />
 </RelativeLayout>

@@ -54,6 +54,11 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        //disables back button
+    }
+
     public void openShuttleActivity(){
         Intent intent = new Intent(this, ShuttleActivity.class);
         startActivity(intent);
