@@ -4,12 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShuttleActivity">
+    tools:context=".FastingActivity">
 
-    <TextView
-        android:id="@+id/textView_title"
+    <CalendarView
+        android:id = "@+id/calender_shuttle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SHUTTLE"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button_shuttle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded_blue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="550dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Save Date" />
+
+    <CheckBox
+        android:id="@+id/checkBox_toBLI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="70dp"
+        android:text="To BLI" />
+
+    <CheckBox
+        android:id="@+id/checkBox_fromBLI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="220dp"
+        android:text="From BLI" />
+
 </RelativeLayout>

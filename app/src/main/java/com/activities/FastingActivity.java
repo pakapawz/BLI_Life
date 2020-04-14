@@ -11,4 +11,9 @@ public class FastingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fasting);
     }
+
+    @Override
+    public void onBackPressed() {
+        //disables back button
+    }
 }

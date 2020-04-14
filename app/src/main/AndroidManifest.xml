@@ -11,15 +11,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AccountActivity"></activity>
-        <activity android:name=".OtherActivity" />
-        <activity android:name=".FastingActivity" />
-        <activity android:name=".ShuttleActivity" />
+
+        <activity
+            android:name=".MusicActivity"
+            android:parentActivityName=".OtherActivity" />
+        <activity
+            android:name=".CourtActivity"
+            android:parentActivityName=".OtherActivity"/>
+        <activity
+            android:name=".RoomActivity"
+            android:parentActivityName=".OtherActivity"/>
+
+        <activity
+            android:name=".AccountActivity"
+            android:parentActivityName=".HomeActivity"/>
+        <activity
+            android:name=".OtherActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".FastingActivity"
+            android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".ShuttleActivity"
+            android:parentActivityName=".HomeActivity" />
+
         <activity android:name=".HomeActivity" />
-        <activity android:name=".SignUpActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SignInActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SignUpActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SignInActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

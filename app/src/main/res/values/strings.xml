@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">BLI_LIfe</string>
+    <string name="app_name">BLI_Life</string>
+
+    <string-array name="roomList">
+        <item>(choose room)</item>
+
+        <item>A801</item>
+        <item>A802</item>
+        <item>A803</item>
+
+        <item>A901</item>
+        <item>A902</item>
+        <item>A903</item>
+        <item>A904</item>
+
+        <item>A1001</item>
+        <item>A1002</item>
+        <item>A1003</item>
+        <item>A1004</item>
+    </string-array>
 </resources>

@@ -28,8 +28,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
     private FirebaseAuth firebaseAuth;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +108,4 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         }
     }
-
-
 }

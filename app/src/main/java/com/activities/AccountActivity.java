@@ -17,9 +17,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        
+        getSupportActionBar().setTitle("Account Setting");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         buttonLogout  = findViewById(R.id.button_logout);
-
         buttonLogout.setOnClickListener(this);
     }
 
