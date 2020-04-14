@@ -6,10 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".FastingActivity">
 
-    <TextView
-        android:id="@+id/textView_title"
+    <CalendarView
+        android:id = "@+id/calender_fasting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="FASTING"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display3" />
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/button_fasting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_rounded_blue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="500dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Save Date" />
+
 </RelativeLayout>
