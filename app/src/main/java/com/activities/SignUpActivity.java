@@ -55,30 +55,84 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    private boolean validateUsername(String username){
+        //username empty
+        if(TextUtils.isEmpty(username)){
+            //password empty
+            editUsername.setError("Username is required.");
+            return false;
+        }
+        //username too short
+        if(username.length() < 6){
+            editUsername.setError("Username must be at least 6 Characters.");
+            return false;
+        }
+
+        //contains whitespace
+        if(username.contains(" ")){
+            editUsername.setError("Username cannot contain whitespaces.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateEmailFormat(String email){
+        //empty email
+        if(TextUtils.isEmpty(email)){
+            editEmail.setError("Email is required.");
+            return false;
+        }
+
+        //does not contain @ and .
+        if (!email.contains("@") && !email.contains(".")) {
+            editEmail.setError("Invalid email format.");
+            return false;
+        }
+
+        //invalid format
+        if (email.contains("@.") || email.contains(".@")){
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean validatePassword(String password){
+        if(TextUtils.isEmpty(password)){
+            //password empty
+            editPassword.setError("Password is required.");
+            return false;
+        }
+        //password too short
+        if(password.length() <= 6){
+            editPassword.setError("Password must be more than 6 Characters.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validateRetypePassword(String password, String rePassword){
+        if(password.equals(rePassword) == false){
+            editRepassword.setError("Retype password must be same with password.");
+            return false;
+        }
+
+        return true;
+    }
+
     private void registerUser(){
-        String email     = editEmail.getText().toString().trim();
+        String username = editUsername.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
         String password  = editPassword.getText().toString().trim();
         String rePassword= editRepassword.getText().toString().trim();
 
-        if(TextUtils.isEmpty(email)){
-            editEmail.setError("Email is required.");
-            return;
-        }
-
-        if(TextUtils.isEmpty(password)){
-            editPassword.setError("Password is required.");
-            return;
-        }
-
-        if(password.length() <= 6){
-            editPassword.setError("Password must be more than 6 Characters.");
-            return;
-        }
-
-        if(password.equals(rePassword) != true){
-            editRepassword.setError("invalid password!");
-            return;
-        }
+        if (validateUsername(username) == false ||
+            validateEmailFormat(email) == false ||
+            validatePassword(password) == false ||
+            validateRetypePassword(password, rePassword) == false) return;
 
         progressDialog.setMessage("Registering User...");
         progressDialog.show();
@@ -102,8 +156,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if(view == btnSignup){
             registerUser();
         }
+
         if(view == textViewSignin){
-            //open signin activity
+            //open signIn activity
             startActivity(new Intent(getApplicationContext(),SignInActivity.class));
             finish();
         }
