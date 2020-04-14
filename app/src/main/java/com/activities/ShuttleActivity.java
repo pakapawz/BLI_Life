@@ -14,9 +14,4 @@ public class ShuttleActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Shuttle Reservation");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
 }

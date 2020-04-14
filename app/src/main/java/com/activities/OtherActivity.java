@@ -47,11 +47,6 @@ public class OtherActivity extends AppCompatActivity implements OnClickListener 
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
-
     public void openRoomActivity(){
         Intent intent = new Intent(this, RoomActivity.class);
         startActivity(intent);
