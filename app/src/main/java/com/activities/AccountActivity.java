@@ -26,9 +26,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void logout(){
-        FirebaseAuth.getInstance().signOut(); //logout
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        finish();
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override
