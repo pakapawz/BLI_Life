@@ -1,15 +1,29 @@
 package com.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.OnClickAction;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
 
+    private EditText editEmail, editPassword;
     private Button signInButton;
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,17 +32,86 @@ public class SignInActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Sign In");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        editEmail = findViewById(R.id.editText_email);
+        editPassword = findViewById(R.id.editText_password);
         signInButton = (Button) findViewById(R.id.button_signIn);
-        signInButton.setOnClickListener(new View.OnClickListener(){
+        progressDialog = new ProgressDialog(this);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openHomeActivity();
+                signInUser();
             }
         });
     }
 
-    public void openHomeActivity(){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+    private boolean validateEmailFormat(String email){
+        //empty email
+        if(TextUtils.isEmpty(email)){
+            editEmail.setError("Email is required.");
+            return false;
+        }
+
+        //does not contain @ and .
+        if (!email.contains("@") && !email.contains(".")) {
+            editEmail.setError("Invalid email format.");
+            return false;
+        }
+
+        //invalid format
+        if (email.contains("@.") || email.contains(".@")){
+            return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean validatePassword(String password){
+        if(TextUtils.isEmpty(password)){
+            //password empty
+            editPassword.setError("Password is required.");
+            return false;
+        }
+        if(password.length() <= 6){
+            //password too short
+            editPassword.setError("Password must be more than 6 Characters.");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void signInUser(){
+        String email = editEmail.getText().toString().trim();
+        String password  = editPassword.getText().toString().trim();
+
+        if (validateEmailFormat(email) == false || validatePassword(password) == false) return;
+
+        progressDialog.setMessage("Please wait ...");
+        progressDialog.show();
+
+        //Authenticate the user
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(SignInActivity.this, "Signed in successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                }else{
+                    Toast.makeText(SignInActivity.this, "Failed to login" +
+                            task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }
+        });
+
+    }
+
+    //to prevent go back to before activity, after logout.
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(false);
     }
 }

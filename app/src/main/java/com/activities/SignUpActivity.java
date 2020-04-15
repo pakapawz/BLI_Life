@@ -34,17 +34,17 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
 
         editUsername     = findViewById(R.id.editText_username);
-        editEmail    = findViewById(R.id.editText_email);
-        editPassword = findViewById(R.id.editText_password);
-        editRepassword = findViewById(R.id.editText_repassword);
-        btnSignup  = findViewById(R.id.button_signUp);
-        textViewSignin = findViewById(R.id.textView_signIn);
+        editEmail        = findViewById(R.id.editText_email);
+        editPassword     = findViewById(R.id.editText_password);
+        editRepassword   = findViewById(R.id.editText_repassword);
+        btnSignup        = findViewById(R.id.button_signUp);
+        textViewSignin   = findViewById(R.id.textView_signIn);
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog   = new ProgressDialog(this);
         btnSignup.setOnClickListener(this);
         textViewSignin.setOnClickListener(this);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth     = FirebaseAuth.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
@@ -63,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return false;
         }
         //username too short
-        if(username.length() < 6){
+        if(username.length() < 4){
             editUsername.setError("Username must be at least 6 Characters.");
             return false;
         }
@@ -140,12 +140,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    //registered successfully
-                    Toast.makeText(SignUpActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                if(task.isSuccessful()){
+                    Toast.makeText(SignUpActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                }else {
-                    Toast.makeText(SignUpActivity.this, "Could not register. please try again", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(SignUpActivity.this, "Could not register! Please try again" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
                 }
             }
         });
