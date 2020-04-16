@@ -88,11 +88,6 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
         textView.setText(dateChosen);
     }
 
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
-
     public void showErrorDialog(){
         InvalidReservationDialog newDialog = new InvalidReservationDialog();
         newDialog.show(getSupportFragmentManager(), "Dialog");

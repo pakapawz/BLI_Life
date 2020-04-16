@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import static android.view.View.*;
 
-public class OtherActivity extends AppCompatActivity {
+public class OtherActivity extends AppCompatActivity implements OnClickListener {
 
     private Button roomButton;
     private Button courtButton;
@@ -46,11 +47,6 @@ public class OtherActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
-
     public void openRoomActivity(){
         Intent intent = new Intent(this, RoomActivity.class);
         startActivity(intent);
@@ -64,5 +60,10 @@ public class OtherActivity extends AppCompatActivity {
     public void openMusicActivity(){
         Intent intent = new Intent(this, MusicActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

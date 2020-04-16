@@ -118,11 +118,6 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         textView.setText(currDate);
     }
 
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
-
     public void reserve(){
 
     }

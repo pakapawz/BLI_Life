@@ -61,11 +61,6 @@ public class CourtActivity extends AppCompatActivity implements DatePickerDialog
         textView.setText(dateChosen);
     }
 
-    @Override
-    public void onBackPressed() {
-        //disables back button
-    }
-
     public void reserve(){
         //process and back to parent activity
     }

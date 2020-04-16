@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "325445925487",
+    "firebase_url": "https://bli-life-29947.firebaseio.com",
+    "project_id": "bli-life-29947",
+    "storage_bucket": "bli-life-29947.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325445925487:android:390418edd02e5f9f8b6b9a",
+        "android_client_info": {
+          "package_name": "com.activities"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325445925487-qal9jitdh6l1aluj2lrvkrmtfa1nao1f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.activities",
+            "certificate_hash": "993aa4daadbb16d9fc65d34910f8f11ed600bbd0"
+          }
+        },
+        {
+          "client_id": "325445925487-tpoi1g8q3khmcnaqtf846m0kcbgp74g7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXuQ7b8oP4rhNusAhYtYHPQ0LDhmlEE0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325445925487-tpoi1g8q3khmcnaqtf846m0kcbgp74g7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
