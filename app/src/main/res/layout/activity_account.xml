@@ -4,17 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7AD1DC"
+    android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
     tools:context=".AccountActivity">
 
+    <TextView
+        android:id="@+id/textView_userAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="20dp"
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        tools:text="User Account" />
+
+    <TextView
+        android:id="@+id/textView_ProfileUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_userAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="35dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        tools:text="Username" />
+
+    <TextView
+        android:id="@+id/textView_ProfileEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_ProfileUsername"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:text="Email" />
+
+    <TextView
+        android:id="@+id/textView_ProfileClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_ProfileEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:text="Class" />
+
+
+    <Button
+        android:id="@+id/button_resetPassword"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_userAccount"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
+        android:background="@drawable/button_rounded_green"
+        android:text="Reset Password"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.718" />
 
     <Button
         android:id="@+id/button_saveChanges"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_UserProfile"
+        android:layout_below="@id/button_resetPassword"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="380dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/button_rounded_green"
         android:text="Save Changes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -41,16 +117,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.834" />
-
-    <TextView
-        android:id="@+id/textView_UserProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:textColor="#2D86AE"
-        android:textSize="40dp"
-        tools:text="User Profile" />
-
 
 </RelativeLayout>
