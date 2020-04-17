@@ -6,14 +6,10 @@ import androidx.fragment.app.DialogFragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -45,7 +41,7 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.DatePicker();
+                DialogFragment datePicker = new components.Other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
