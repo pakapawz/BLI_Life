@@ -99,11 +99,9 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
     public void reserve(){
         RoomReservation newReservation = new RoomReservation(dateChosen, roomChosen);
 
-        if (availabiltyCheck(newReservation) == true){
-
-            finish();
-        } else {
+        if (availabiltyCheck(newReservation) == false){
             showErrorDialog();
+            return;
         }
     }
 }

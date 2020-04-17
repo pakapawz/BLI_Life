@@ -122,25 +122,23 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         textView.setText(reservationDate);
     }
 
-    public void showErrorDialog(){
+    private void showErrorDialog(){
         InvalidReservationDialog newDialog = new InvalidReservationDialog();
         newDialog.show(getSupportFragmentManager(), "Dialog");
     }
 
-    public boolean availabiltyCheck(MusicReservation newReservation){
+    private boolean availabiltyCheck(MusicReservation newReservation){
 
 
         return false;
     }
 
-    public void reserve(){
+    private void reserve(){
         MusicReservation newReservation = new MusicReservation();
 
-        if (availabiltyCheck(newReservation) == true){
-
-            finish();
-        } else {
+        if (availabiltyCheck(newReservation) == false){
             showErrorDialog();
+            return;
         }
     }
 }

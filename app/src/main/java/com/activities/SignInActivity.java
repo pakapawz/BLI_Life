@@ -60,12 +60,15 @@ public class SignInActivity extends AppCompatActivity {
         }
 
         //invalid format
-        if (email.contains("@.") || email.contains(".@")){
+
+        if (email.contains("@.") || email.contains(".@") ||
+            email.startsWith(".") || email.startsWith("@") ||
+            email.endsWith(".") || email.endsWith("@")) {
+            editEmail.setError("Invalid email format.");
             return false;
         }
 
         return true;
-
     }
 
     private boolean validatePassword(String password){

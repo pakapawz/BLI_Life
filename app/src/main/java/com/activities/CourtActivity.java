@@ -79,11 +79,9 @@ public class CourtActivity extends AppCompatActivity implements DatePickerDialog
     public void reserve(){
         CourtReservation newReservation = new CourtReservation(dateChosen);
 
-        if (availabiltyCheck(newReservation) == true){
-
-            finish();
-        } else {
+        if (availabiltyCheck(newReservation) == false){
             showErrorDialog();
+            return;
         }
     }
 }
