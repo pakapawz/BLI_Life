@@ -32,7 +32,7 @@ public class CourtActivity extends AppCompatActivity implements DatePickerDialog
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.DatePicker();
+                DialogFragment datePicker = new components.Other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });

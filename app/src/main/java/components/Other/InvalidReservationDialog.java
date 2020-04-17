@@ -1,4 +1,4 @@
-package components;
+package components.Other;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

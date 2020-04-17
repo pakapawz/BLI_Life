@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-import components.InvalidReservationDialog;
+import components.Other.InvalidReservationDialog;
 
 public class RoomActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -45,7 +45,7 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.DatePicker();
+                DialogFragment datePicker = new components.Other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
