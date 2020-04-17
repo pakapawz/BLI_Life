@@ -13,6 +13,10 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import components.other.InvalidReservationDialog;
+import components.reservations.CourtReservation;
+import components.reservations.RoomReservation;
+
 public class CourtActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private Button datePickButton;
@@ -32,7 +36,7 @@ public class CourtActivity extends AppCompatActivity implements DatePickerDialog
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.Other.DatePicker();
+                DialogFragment datePicker = new components.other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
@@ -61,7 +65,23 @@ public class CourtActivity extends AppCompatActivity implements DatePickerDialog
         textView.setText(dateChosen);
     }
 
+    public void showErrorDialog(){
+        InvalidReservationDialog newDialog = new InvalidReservationDialog();
+        newDialog.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    public boolean availabiltyCheck(CourtReservation newReservation){
+
+
+        return false;
+    }
+
     public void reserve(){
-        //process and back to parent activity
+        CourtReservation newReservation = new CourtReservation(dateChosen);
+
+        if (availabiltyCheck(newReservation) == false){
+            showErrorDialog();
+            return;
+        }
     }
 }
