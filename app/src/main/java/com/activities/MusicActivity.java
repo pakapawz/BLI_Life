@@ -14,6 +14,10 @@ import android.widget.TextView;
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import components.other.InvalidReservationDialog;
+import components.reservations.MusicReservation;
+import components.reservations.RoomReservation;
+
 public class MusicActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private Button datePickButton;
@@ -24,10 +28,11 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
     private CheckBox drumBoxCheckBox;
     private CheckBox bassCheckBox;
 
-    boolean keyboardIsReserved = false;
-    boolean guitarIsReserved = false;
-    boolean drumBoxIsReserved= false;
-    boolean bassIsReserved = false;
+    private boolean keyboardIsReserved = false;
+    private boolean guitarIsReserved = false;
+    private boolean drumBoxIsReserved= false;
+    private boolean bassIsReserved = false;
+    private String reservationDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +46,7 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.Other.DatePicker();
+                DialogFragment datePicker = new components.other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
@@ -109,12 +114,33 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
         String currDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        reservationDate = currDate;
+
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
-        textView.setText(currDate);
+        textView.setText(reservationDate);
+    }
+
+    public void showErrorDialog(){
+        InvalidReservationDialog newDialog = new InvalidReservationDialog();
+        newDialog.show(getSupportFragmentManager(), "Dialog");
+    }
+
+    public boolean availabiltyCheck(MusicReservation newReservation){
+
+
+        return false;
     }
 
     public void reserve(){
+        MusicReservation newReservation = new MusicReservation();
 
+        if (availabiltyCheck(newReservation) == true){
+
+            finish();
+        } else {
+            showErrorDialog();
+        }
     }
 }

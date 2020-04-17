@@ -1,4 +1,4 @@
-package components.Person;
+package components.person;
 
 public final class User extends Person {
 

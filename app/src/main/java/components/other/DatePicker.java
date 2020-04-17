@@ -1,4 +1,4 @@
-package components.Other;
+package components.other;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

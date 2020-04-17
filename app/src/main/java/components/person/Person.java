@@ -1,4 +1,4 @@
-package components.Person;
+package components.person;
 
 public abstract class Person {
     private String username;

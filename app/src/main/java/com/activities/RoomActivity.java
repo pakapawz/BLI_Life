@@ -12,12 +12,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
-import components.Other.InvalidReservationDialog;
+import components.other.InvalidReservationDialog;
+import components.reservations.RoomReservation;
 
 public class RoomActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener {
 
@@ -45,7 +45,7 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
         datePickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment datePicker = new components.Other.DatePicker();
+                DialogFragment datePicker = new components.other.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
@@ -62,10 +62,7 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String roomSelected = parent.getItemAtPosition(position).toString();
-
         roomChosen = roomSelected;
-
-        Toast.makeText(parent.getContext(), roomChosen, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -93,8 +90,20 @@ public class RoomActivity extends AppCompatActivity implements AdapterView.OnIte
         newDialog.show(getSupportFragmentManager(), "Dialog");
     }
 
+    public boolean availabiltyCheck(RoomReservation newReservation){
+
+
+        return false;
+    }
+
     public void reserve(){
-        //process then back to parent activity
-        boolean isValidReservation = true;
+        RoomReservation newReservation = new RoomReservation(dateChosen, roomChosen);
+
+        if (availabiltyCheck(newReservation) == true){
+
+            finish();
+        } else {
+            showErrorDialog();
+        }
     }
 }
