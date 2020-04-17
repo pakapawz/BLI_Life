@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,9 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,6 +36,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private ProgressDialog progressDialog;
 
     private FirebaseAuth firebaseAuth;
+
+    private FirebaseFirestore fireStore;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +57,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         textViewSignin.setOnClickListener(this);
 
         firebaseAuth     = FirebaseAuth.getInstance();
+        fireStore        = FirebaseFirestore.getInstance();
 
         if(firebaseAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(),HomeActivity.class));
@@ -124,10 +137,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void registerUser(){
-        String username = editUsername.getText().toString().trim();
-        String email = editEmail.getText().toString().trim();
-        String password  = editPassword.getText().toString().trim();
-        String rePassword= editRepassword.getText().toString().trim();
+        final String username   = editUsername.getText().toString().trim();
+        final String email      = editEmail.getText().toString().trim();
+        final String password   = editPassword.getText().toString().trim();
+        final String rePassword = editRepassword.getText().toString().trim();
 
         if (validateUsername(username) == false ||
             validateEmailFormat(email) == false ||
@@ -142,6 +155,26 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignUpActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
+                    //store data in firebase
+                    userID = firebaseAuth.getCurrentUser().getUid();
+                    DocumentReference documentReference = fireStore.collection("users").document(userID);
+                    Map<String,Object> user = new HashMap<>();
+                    user.put("uName",username);
+                    user.put("uEmail",email);
+                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            String TAG = "";
+                            Log.d(TAG, "onSuccess: User Profile is created for " + userID);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String TAG = "";
+                            Log.d(TAG, "onFailure: " + e.toString());
+                        }
+                    });
+                    //move to HomeActivity
                     startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                 }else{
                     Toast.makeText(SignUpActivity.this, "Could not register! Please try again" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
