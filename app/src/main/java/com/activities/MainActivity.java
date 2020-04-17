@@ -11,7 +11,6 @@ public class MainActivity extends AppCompatActivity {
 
     Button signInButton;
     Button signUpButton;
-    Button TEMPBUTTON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +32,6 @@ public class MainActivity extends AppCompatActivity {
                 openSignUpActivity();
             }
         });
-
-        TEMPBUTTON = (Button) findViewById(R.id.button_TEMP);
-        TEMPBUTTON.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                TEMP();
-            }
-        });
     }
 
     public void openSignInActivity(){
@@ -53,8 +44,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void TEMP(){
-        Intent intent = new Intent(this, HomeActivity.class);
-        startActivity(intent);
+    @Override
+    public void onBackPressed() {
+
     }
 }

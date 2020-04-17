@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
-
     private Button shuttleButton;
     private Button fastingButton;
     private Button otherButton;
@@ -20,6 +19,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         getSupportActionBar().setTitle("Home");
+
+//        if(isAppActive == false) finish();
 
         shuttleButton = (Button) findViewById(R.id.button_shuttle);
         shuttleButton.setOnClickListener(new View.OnClickListener(){
@@ -59,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         //disables back button
     }
 
+
     public void openShuttleActivity(){
         Intent intent = new Intent(this, ShuttleActivity.class);
         startActivity(intent);
@@ -76,11 +78,6 @@ public class HomeActivity extends AppCompatActivity {
 
     public void openAccountActivity(){
         Intent intent = new Intent(this, AccountActivity.class);
-        startActivity(intent);
-    }
-
-    public void signOut(){
-        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
