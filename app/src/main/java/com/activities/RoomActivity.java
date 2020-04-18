@@ -6,6 +6,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -39,6 +40,9 @@ public class RoomActivity
 
     private Button datePickButton;
     private Button reserveButton;
+
+    //TODO
+    private Button testButton;
 
     private Spinner roomSpinner;
 
@@ -89,6 +93,20 @@ public class RoomActivity
                 reserve();
             }
         });
+
+        //TODO
+        testButton = (Button) findViewById(R.id.button_TEST);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRetrieve();
+            }
+        });
+    }
+
+    private void goToRetrieve(){
+        Intent intent = new Intent(this, RetrieveTestActivity.class);
+        startActivity(intent);
     }
 
     @Override
