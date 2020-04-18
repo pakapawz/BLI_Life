@@ -39,17 +39,17 @@ public class RetrieveTestActivity extends AppCompatActivity{
         db = FirebaseFirestore.getInstance();
         reference = db.collection("RoomReservation");
 
-        retrieveButton = (Button) findViewById(R.id.btn_retrieve);
-        retrieveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                retrieveData();
-            }
-        });
-
-        txtDate = (TextView) findViewById(R.id.txt_date);
-        txtRoom = (TextView) findViewById(R.id.txt_room);
-        txtUsername = (TextView) findViewById(R.id.txt_username);
+//        retrieveButton = (Button) findViewById(R.id.btn_retrieve);
+//        retrieveButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                retrieveData();
+//            }
+//        });
+//
+//        txtDate = (TextView) findViewById(R.id.txt_date);
+//        txtRoom = (TextView) findViewById(R.id.txt_room);
+//        txtUsername = (TextView) findViewById(R.id.txt_username);
     }
 
     public void retrieveData(){
@@ -62,9 +62,9 @@ public class RetrieveTestActivity extends AppCompatActivity{
 
                         for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
                              holder = documentSnapshot.toObject(RoomReservation.class);
-                             txtRoom.setText(holder.getRoomNo());
-                             txtUsername.setText(holder.getUser());
-                             txtDate.setText(holder.getDate());
+//                             txtRoom.setText(holder.getRoomNo());
+//                             txtUsername.setText(holder.getUser());
+//                             txtDate.setText(holder.getDate());
                          }
                     }
                 })
