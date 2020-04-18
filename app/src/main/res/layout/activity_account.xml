@@ -66,31 +66,13 @@
         android:textStyle="bold"
         tools:text="Class" />
 
-
-    <Button
-        android:id="@+id/button_resetPassword"
-        android:layout_width="223dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView_userAccount"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="320dp"
-        android:background="@drawable/button_rounded_green"
-        android:text="Reset Password"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
-
     <Button
         android:id="@+id/button_saveChanges"
         android:layout_width="223dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/button_resetPassword"
+        android:layout_below="@id/textView_ProfileClass"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="275dp"
         android:background="@drawable/button_rounded_green"
         android:text="Save Changes"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"

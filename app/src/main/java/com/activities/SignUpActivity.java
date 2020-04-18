@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +27,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.internal.bind.ArrayTypeAdapter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private EditText editUsername, editEmail, editPassword, editRepassword;
     private Button btnSignup;
@@ -38,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseAuth firebaseAuth;
 
     private FirebaseFirestore fireStore;
+    private String classChosen;
     private String userID;
 
     @Override
@@ -46,6 +51,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
 
         editUsername     = findViewById(R.id.editText_username);
+
+        Spinner classSpinner        = findViewById(R.id.spinner_class);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.classList, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        classSpinner.setAdapter(adapter);
+        classSpinner.setOnItemSelectedListener(this);
+
         editEmail        = findViewById(R.id.editText_email);
         editPassword     = findViewById(R.id.editText_password);
         editRepassword   = findViewById(R.id.editText_repassword);
@@ -139,6 +151,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private void registerUser(){
         final String username   = editUsername.getText().toString().trim();
         final String email      = editEmail.getText().toString().trim();
+        final String kelas      = classChosen.toString().trim();
         final String password   = editPassword.getText().toString().trim();
         final String rePassword = editRepassword.getText().toString().trim();
 
@@ -161,6 +174,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     Map<String,Object> user = new HashMap<>();
                     user.put("uName",username);
                     user.put("uEmail",email);
+                    user.put("uKelas",kelas);
                     documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -195,5 +209,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             startActivity(new Intent(getApplicationContext(),SignInActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String classSelected = parent.getItemAtPosition(position).toString();
+        classChosen = classSelected;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

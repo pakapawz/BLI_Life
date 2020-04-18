@@ -51,7 +51,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
                 userAccount.setText("Account");
                 userName.setText(documentSnapshot.getString("uName"));
                 userEmail.setText(documentSnapshot.getString("uEmail"));
-                userClass.setText("Class");
+                userClass.setText(documentSnapshot.getString("uKelas"));
             }
         });
 
