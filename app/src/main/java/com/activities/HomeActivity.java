@@ -7,11 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.firestore.model.DatabaseId;
+
 public class HomeActivity extends AppCompatActivity {
     private Button shuttleButton;
     private Button fastingButton;
     private Button otherButton;
     private Button accountButton;
+
+    private String name;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +24,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         getSupportActionBar().setTitle("Home");
-
-//        if(isAppActive == false) finish();
 
         shuttleButton = (Button) findViewById(R.id.button_shuttle);
         shuttleButton.setOnClickListener(new View.OnClickListener(){
