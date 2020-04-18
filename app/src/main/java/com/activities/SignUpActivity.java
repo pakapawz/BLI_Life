@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.internal.bind.ArrayTypeAdapter;
@@ -167,6 +168,22 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
+                    //send verification link
+                    FirebaseUser userVer = firebaseAuth.getCurrentUser();
+                    userVer.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(SignUpActivity.this, "Verification Email has been sent.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String TAG="";
+                            Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                        }
+                    });
+
                     Toast.makeText(SignUpActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                     //store data in firebase
                     userID = firebaseAuth.getCurrentUser().getUid();

@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity"
     android:background="#03A9F4">
+    tools:context=".SignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#03A9F4">
 
 
     <ImageView
@@ -36,27 +41,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
 
-    <Spinner
-        android:id="@+id/spinner_class"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_below="@id/editText_username"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="24dp"
-        android:background="@android:color/holo_blue_light"
-        android:ems="10"
-        android:hint="Class"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:spinnerMode="dropdown"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#E3DEDE"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
+        <Spinner
+            android:id="@+id/spinner_class"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/editText_username"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:background="@android:color/holo_blue_light"
+            android:ems="10"
+            android:hint="Class"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:spinnerMode="dropdown"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#E3DEDE"
+            android:textSize="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
 
     <EditText
         android:id="@+id/editText_email"
@@ -154,6 +159,8 @@
         app:layout_constraintTop_toBottomOf="@+id/button_signUp"
         app:layout_constraintVertical_bias="0.235" />
 
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+</ScrollView>
