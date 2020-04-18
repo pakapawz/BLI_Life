@@ -1,42 +1,67 @@
 package components.reservations;
 
+import androidx.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public abstract class Reservation {
-    private String creationDate;
-    private String reservingUsername;
-    private String reservingEmail;
+    protected String creationDate = "NULL";
+    protected String user = "NULL";
+    protected String email = "NULL";
+    protected String date = "NULL";
 
-    private String getCurrentDate() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        Date date = new Date();
-        return dateFormat.format(date);
+    public Reservation(){}
+
+    public Reservation(String user, String email, String date){
+        creationDate = getCurrentDate();
+        this.user = user;
+        this.email = email;
+        this.date = date;
     }
 
-    public Reservation(){
-        this.creationDate = getCurrentDate();
-        this.reservingEmail = "";
-        this.reservingUsername = "";
+    private String getCurrentDate(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date now = new Date();
+        return dateFormat.format(now);
     }
 
-    public String getCreationDate(){
+    public boolean dateChecker(){
+        if (date.compareTo(creationDate) <= 0) return false;
+        else return true;
+    }
+
+    public String getCreationDate() {
         return creationDate;
     }
 
-    public String getReservingUsername(){
-        return reservingUsername;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
-    public String getReservingEmail(){
-        return reservingEmail;
+    public String getUser() {
+        return user;
     }
 
-    public void setReservingUsername(String reservingUsername){
-        this.reservingUsername = reservingUsername;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public void setReservingEmail(String reservingEmail){
-        this.reservingEmail = reservingEmail;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

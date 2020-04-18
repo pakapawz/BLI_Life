@@ -65,6 +65,6 @@
         android:layout_below="@id/button_date"
         android:layout_alignLeft="@id/button_date"
         android:layout_marginTop="10dp"
-        android:text="Note:\n Room is only available for\n reservation from 5 p.m.\n to 9 p.m."
+        android:text="Note:\n Court is only available for\n reservation from 5 p.m.\n to 9 p.m."
         android:textColor="#80000000" />
 </RelativeLayout>

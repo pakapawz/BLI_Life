@@ -1,38 +1,56 @@
 package com.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.util.Calendar;
 
+import components.other.CustomProgressDialog;
 import components.other.InvalidReservationDialog;
+import components.reservations.interfaces.Idatabase;
+import components.reservations.interfaces.Ivalidations;
 import components.reservations.MusicReservation;
-import components.reservations.RoomReservation;
+import components.reservations.Reservation;
 
-public class MusicActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MusicActivity
+        extends AppCompatActivity
+        implements DatePickerDialog.OnDateSetListener,
+            Ivalidations, Idatabase {
 
     private Button datePickButton;
     private Button reserveButton;
+
+    private FirebaseFirestore db;
+    private CollectionReference ref;
 
     private CheckBox keyboardCheckBox;
     private CheckBox guitarCheckBox;
     private CheckBox drumBoxCheckBox;
     private CheckBox bassCheckBox;
 
-    private boolean keyboardIsReserved = false;
-    private boolean guitarIsReserved = false;
-    private boolean drumBoxIsReserved= false;
-    private boolean bassIsReserved = false;
-    private String reservationDate;
+    private boolean keyboard = false;
+    private boolean guitar   = false;
+    private boolean drumBox  = false;
+    private boolean bass     = false;
+
+    private String date = "(choose date)";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +69,18 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
             }
         });
 
+        //setting up database
+        db = FirebaseFirestore.getInstance();
+        ref = db.collection("MusicReservation");
+
         keyboardCheckBox = (CheckBox)findViewById(R.id.checkBox_keyboard);
         keyboardCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (keyboardCheckBox.isChecked()){
-                    keyboardIsReserved = true;
+                    keyboard = true;
                 } else {
-                    keyboardIsReserved = false;
+                    keyboard = false;
                 }
             }
         });
@@ -68,38 +90,38 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View v) {
                 if (guitarCheckBox.isChecked()){
-                    guitarIsReserved = true;
+                    guitar = true;
                 } else {
-                    guitarIsReserved = false;
+                    guitar = false;
                 }
             }
         });
 
-        drumBoxCheckBox = (CheckBox)findViewById(R.id.checkBox_guitar);
+        drumBoxCheckBox = (CheckBox)findViewById(R.id.checkBox_drumbox);
         drumBoxCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (drumBoxCheckBox.isChecked()){
-                    drumBoxIsReserved = true;
+                    drumBox = true;
                 } else {
-                    drumBoxIsReserved = false;
+                    drumBox = false;
                 }
             }
         });
 
-        bassCheckBox = (CheckBox)findViewById(R.id.checkBox_guitar);
+        bassCheckBox = (CheckBox)findViewById(R.id.checkBox_bass);
         bassCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (bassCheckBox.isChecked()){
-                    bassIsReserved = true;
+                    bass = true;
                 } else {
-                    bassIsReserved = false;
+                    bass = false;
                 }
             }
         });
 
-        reserveButton = (CheckBox)findViewById(R.id.checkBox_guitar);
+        reserveButton = (Button) findViewById(R.id.button_reserve);
         reserveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,30 +137,87 @@ public class MusicActivity extends AppCompatActivity implements DatePickerDialog
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String currDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
-        reservationDate = currDate;
+        String currDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+        date = currDate;
 
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
-        textView.setText(reservationDate);
+        textView.setText(date);
     }
 
-    private void showErrorDialog(){
-        InvalidReservationDialog newDialog = new InvalidReservationDialog();
-        newDialog.show(getSupportFragmentManager(), "Dialog");
+    @Override
+    public void writeToDatabase(Reservation reservation) {
+        ref.document().set(reservation)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MusicActivity.this,
+                                "Musical instruments are now reserved on " + date + " under the name " + "NAME",
+                                Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MusicActivity.this,
+                                "Uh oh, something's wrong. Please try again later.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
-    private boolean availabiltyCheck(MusicReservation newReservation){
+    @Override
+    public void reserve() {
+        final CustomProgressDialog progressDialog = new CustomProgressDialog(MusicActivity.this);
 
 
-        return false;
-    }
+        MusicReservation reservation = new MusicReservation("TEST", "TEST@domain.com", date,
+                keyboard, drumBox, bass, guitar);
 
-    private void reserve(){
-        MusicReservation newReservation = new MusicReservation();
+        if (validateReservation(reservation) == false) return;
 
-        if (availabiltyCheck(newReservation) == false){
+        progressDialog.startDialog();
+        Handler handler = new Handler();
+        boolean b = handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.stopDialog();
+            }
+        }, 2000);
+
+        if (checkAvailability(reservation) == false) {
             showErrorDialog();
             return;
         }
+
+        writeToDatabase(reservation);
+    }
+
+    @Override
+    public boolean validateReservation(Reservation reservation) {
+        if (date.equals("(choose date)")){
+            Toast.makeText(MusicActivity.this, "Choose date!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (reservation.dateChecker() == false) {
+            Toast.makeText(MusicActivity.this, "Reservation date must be greater than current date!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        if (keyboard == false && drumBox == false && guitar == false && bass == false){
+            Toast.makeText(MusicActivity.this, "Choose at least one musical instrument to reserve!", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean checkAvailability(Reservation reservation) {
+        return true;
+    }
+
+    @Override
+    public void showErrorDialog() {
+        InvalidReservationDialog newDialog = new InvalidReservationDialog();
+        newDialog.show(getSupportFragmentManager(), "Dialog");
     }
 }

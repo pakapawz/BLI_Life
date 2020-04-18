@@ -1,20 +1,12 @@
 package components.reservations;
 
+import androidx.annotation.NonNull;
+
 public final class CourtReservation extends Reservation {
-    private String reservationDate;
 
     public CourtReservation(){}
 
-    public CourtReservation(String reservationDate){
-        super();
-        this.reservationDate = reservationDate;
-    }
-
-    public void setReservationDate(String reservationDate){
-        this.reservationDate = reservationDate;
-    }
-
-    public String getReservationDate(){
-        return reservationDate;
+    public CourtReservation(String user, String email, String date){
+        super(user, email, date);
     }
 }
