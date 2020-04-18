@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,8 +17,10 @@
 
     <EditText
         android:id="@+id/editText_username"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/imageView_icon"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/holo_blue_light"
@@ -34,16 +36,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
 
-    <EditText
-        android:id="@+id/editText_email"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <Spinner
+        android:id="@+id/spinner_class"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_below="@id/editText_username"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
         android:background="@android:color/holo_blue_light"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Class"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:spinnerMode="dropdown"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#E3DEDE"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_icon" />
+
+    <EditText
+        android:id="@+id/editText_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
+        android:layout_below="@id/spinner_class"
+        android:background="@android:color/holo_blue_light"
+        android:ems="10"
+        android:hint="Please use an active Email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
         android:textColor="#FFFFFF"
@@ -56,11 +81,12 @@
 
     <EditText
         android:id="@+id/editText_password"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
+        android:layout_below="@id/editText_email"
         android:background="@android:color/holo_blue_light"
         android:ems="10"
         android:hint="Password"
@@ -76,11 +102,12 @@
 
     <EditText
         android:id="@+id/editText_repassword"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="24dp"
+        android:layout_below="@id/editText_password"
         android:background="@android:color/holo_blue_light"
         android:ems="10"
         android:hint="Re-enter Password"
@@ -98,8 +125,9 @@
         android:id="@+id/button_signUp"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView_icon"
+        android:layout_below="@id/editText_repassword"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
         android:background="@drawable/button_rounded_accent"
         android:text="Sign Up"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -113,9 +141,12 @@
 
     <TextView
         android:id="@+id/textView_signIn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/button_signUp"
+        android:layout_marginTop="15dp"
         android:text="Already have an account? Sign In"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
@@ -123,4 +154,6 @@
         app:layout_constraintTop_toBottomOf="@+id/button_signUp"
         app:layout_constraintVertical_bias="0.235" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>
