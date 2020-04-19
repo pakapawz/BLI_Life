@@ -25,8 +25,29 @@ public abstract class Reservation {
     }
 
     public boolean dateChecker(){
-        if (date.compareTo(creationDate) <= 0) return false;
-        else return true;
+        String[] tokensDate = date.split("/");
+        String[] tokensCurrDate = creationDate.split("/");
+
+        int[] currDate = new int[3];
+        currDate[0] = Integer.parseInt(tokensCurrDate[0]);
+        currDate[1] = Integer.parseInt(tokensCurrDate[1]);
+        currDate[2] = Integer.parseInt(tokensCurrDate[2]);
+
+        int[] resDate = new int[3];
+        resDate[0] = Integer.parseInt(tokensDate[0]);
+        resDate[1] = Integer.parseInt(tokensDate[1]);
+        resDate[2] = Integer.parseInt(tokensDate[2]);
+
+        if (resDate[2] > currDate[2]) return true;
+        else if (resDate[2] == currDate[2]) {
+            if (resDate[1] > currDate[1]) return true;
+            else if (resDate[1] == currDate[1]) {
+                if (resDate[0] > currDate[0]) return true;
+                else return false;
+            }
+            else return false;
+        }
+        else return false;
     }
 
     public String getCreationDate() {

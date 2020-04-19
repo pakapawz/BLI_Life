@@ -7,13 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -22,50 +19,49 @@ import components.reservations.RoomReservation;
 
 public class RetrieveTestActivity extends AppCompatActivity{
 
-    private FirebaseFirestore db;
-    private CollectionReference reference;
+    private FirebaseFirestore firebaseFirestore;
+    private CollectionReference roomReservationReference;
+    private CollectionReference userReference;
 
-    private Button retrieveButton;
+    private Button getButton;
 
     private RoomReservation holder;
 
-    private TextView txtDate, txtUsername, txtRoom;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_test);
 
-        db = FirebaseFirestore.getInstance();
-        reference = db.collection("RoomReservation");
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        roomReservationReference = firebaseFirestore.collection("RoomReservation");
 
-//        retrieveButton = (Button) findViewById(R.id.btn_retrieve);
-//        retrieveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                retrieveData();
-//            }
-//        });
-//
-//        txtDate = (TextView) findViewById(R.id.txt_date);
-//        txtRoom = (TextView) findViewById(R.id.txt_room);
-//        txtUsername = (TextView) findViewById(R.id.txt_username);
+        getButton = (Button) findViewById(R.id.btn_get);
+        getButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retrieveData();
+            }
+        });
+
+        textView = (TextView) findViewById(R.id.textView);
     }
 
     public void retrieveData(){
-        txtUsername.setText("PRESSED");
-        reference.get()
+        roomReservationReference
+                .whereEqualTo("date", "26/04/2020")
+                .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                          String data = "";
 
-                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots){
-                             holder = documentSnapshot.toObject(RoomReservation.class);
-//                             txtRoom.setText(holder.getRoomNo());
-//                             txtUsername.setText(holder.getUser());
-//                             txtDate.setText(holder.getDate());
-                         }
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            holder = documentSnapshot.toObject(RoomReservation.class);
+                            data += holder.getUser() + " " + holder.getRoomNo() + " " + holder.getDate() + "\n";
+                            textView.setText(data);
+                        }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
