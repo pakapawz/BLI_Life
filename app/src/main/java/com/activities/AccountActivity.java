@@ -90,8 +90,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 userAccount.setText("Your Account");
                 userName.setText(documentSnapshot.getString("uName"));
-                userEmail.setText(documentSnapshot.getString("uEmail"));
-                userClass.setText(documentSnapshot.getString("uKelas"));
+                userEmail.setText("Email    : " + documentSnapshot.getString("uEmail"));
+                userClass.setText("Class    : " + documentSnapshot.getString("uKelas"));
             }
         });
 
@@ -104,8 +104,8 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     public void logout(){
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(),SignInActivity.class));
         finish();
+        startActivity(new Intent(getApplicationContext(),SignInActivity.class));
     }
 
     @Override
