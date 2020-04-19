@@ -25,17 +25,27 @@
             android:textStyle="bold"
             tools:text="Your Account" />
 
+        <ImageView
+            android:id="@+id/imageView_icon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            app:srcCompat="@android:drawable/ic_menu_gallery"
+            tools:ignore="VectorDrawableCompat" />
+
+
         <TextView
             android:id="@+id/textView_ProfileUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_userAccount"
+            android:layout_below="@id/imageView_icon"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="35dp"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30dp"
             android:textStyle="bold"
             tools:text="Username" />
@@ -52,7 +62,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"
-            android:textStyle="bold"
+            android:textStyle="bold|italic"
             tools:text="Email" />
 
         <TextView
@@ -76,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_ProfileClass"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="285dp"
+            android:layout_marginTop="85dp"
             android:background="@drawable/button_rounded_green"
             android:text="Save Changes"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -110,8 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_userAccount"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="270dp"
-            android:text="Email is not verified !"
+            android:layout_marginTop="140dp"
+            android:text="Email is not verified."
             android:textAlignment="center"
             android:textColor="#F44336"
             android:textSize="35dp"
@@ -123,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_VerifyMsg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="135dp"
             android:text="Email is Verified."
             android:textAlignment="center"
             android:textColor="#4CAF50"
@@ -136,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_VerifyMsg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="130dp"
             android:background="@drawable/button_rounded_green"
             android:text="Verify Now"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

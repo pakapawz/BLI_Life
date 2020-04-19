@@ -56,6 +56,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         //to check email verified or not
         FirebaseUser userVer = firebaseAuth.getCurrentUser();
         if(!userVer.isEmailVerified()){
+            //Verify email
             verfyMsg.setVisibility(View.VISIBLE);
             buttonVerifyNow.setVisibility(View.VISIBLE);
 
@@ -103,8 +104,7 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
 
     public void logout(){
         FirebaseAuth.getInstance().signOut();
-
-        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        startActivity(new Intent(getApplicationContext(),SignInActivity.class));
         finish();
     }
 
