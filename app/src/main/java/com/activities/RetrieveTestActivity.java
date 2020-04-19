@@ -20,8 +20,7 @@ import components.reservations.RoomReservation;
 public class RetrieveTestActivity extends AppCompatActivity{
 
     private FirebaseFirestore firebaseFirestore;
-    private CollectionReference roomReservationReference;
-    private CollectionReference userReference;
+    private CollectionReference collectionReference;
 
     private Button getButton;
 
@@ -35,7 +34,7 @@ public class RetrieveTestActivity extends AppCompatActivity{
         setContentView(R.layout.activity_retrieve_test);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-        roomReservationReference = firebaseFirestore.collection("RoomReservation");
+        collectionReference = firebaseFirestore.collection("RoomReservation");
 
         getButton = (Button) findViewById(R.id.btn_get);
         getButton.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +48,7 @@ public class RetrieveTestActivity extends AppCompatActivity{
     }
 
     public void retrieveData(){
-        roomReservationReference
+        collectionReference
                 .whereEqualTo("date", "26/04/2020")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {

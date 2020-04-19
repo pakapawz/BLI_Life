@@ -19,7 +19,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import components.other.CustomProgressDialog;
@@ -79,8 +78,9 @@ public class CourtActivity
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currDate = dateFormat.format(c.getTime());
+        String currDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
+
+        date = currDate;
 
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
         textView.setText(date);

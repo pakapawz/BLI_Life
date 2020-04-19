@@ -20,17 +20,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import components.other.CustomProgressDialog;
@@ -52,20 +45,14 @@ public class RoomActivity
     private Button testButton;
 
     private Spinner roomSpinner;
-    private String name = "NAME";
-    private String email = "EMAIL@DOMAIN.COM";
+
     private String date = "(choose date)";
     private String roomNo = "(choose room)";
 
     private ProgressDialog writeProgess;
 
     private FirebaseFirestore db;
-    private CollectionReference roomReservationReference;
-    private FirebaseAuth firebaseAuth;
-    private CollectionReference usersReference;
-
-    private String userId;
-    private boolean isAvailable;
+    private CollectionReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +64,7 @@ public class RoomActivity
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        roomReservationReference = db.collection("RoomReservation");
-        usersReference = db.collection("users");
-
-        userId = firebaseAuth.getInstance().getCurrentUser().getUid();
+        ref = db.collection("RoomReservation");
 
         //setting up room spinner
         roomSpinner = findViewById(R.id.spinner_room);
@@ -125,19 +109,6 @@ public class RoomActivity
         startActivity(intent);
     }
 
-    private void setNameAndEmail(){
-        testButton.setText(userId);
-        usersReference.document(userId)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        name = documentSnapshot.getString("uName");
-                        email = documentSnapshot.getString("uEmail");
-                    }
-                });
-    }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String roomSelected = parent.getItemAtPosition(position).toString();
@@ -156,8 +127,7 @@ public class RoomActivity
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String currDate = dateFormat.format(c.getTime());
+        String currDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
 
         date = currDate;
 
@@ -186,24 +156,7 @@ public class RoomActivity
     @Override
     public boolean checkAvailability(Reservation reservation) {
         //TODO
-        isAvailable = true;
-        roomReservationReference
-                .whereEqualTo("date", reservation.getDate())
-                .whereEqualTo("roomNo", roomNo)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                        //if this loop runs, there exists a reservation for the same date
-                        for (QueryDocumentSnapshot queryDocumentSnapshot: queryDocumentSnapshots){
-                            isAvailable = false;
-                            if (isAvailable == false) break;
-                        }
-                    }
-                });
-
-        return isAvailable;
+        return true;
     }
 
     @Override
@@ -216,8 +169,7 @@ public class RoomActivity
     public void reserve(){
         final CustomProgressDialog progressDialog = new CustomProgressDialog(RoomActivity.this);
 
-        setNameAndEmail();
-        RoomReservation reservation = new RoomReservation(name, email, date, roomNo);
+        RoomReservation reservation = new RoomReservation("TEST", "TEST@domain.com", date, roomNo);
 
         if (validateReservation(reservation) == false) return;
 
@@ -241,12 +193,12 @@ public class RoomActivity
     @Override
     public void writeToDatabase(Reservation reservation) {
 
-        roomReservationReference.document().set(reservation)
+        ref.document().set(reservation)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(RoomActivity.this,
-                                "Room " + roomNo + " is now reserved on " + date + " under the name " + name,
+                                "Room " + roomNo + " is now reserved on " + date + " under the name " + "NAME",
                                 Toast.LENGTH_LONG).show();
                     }
                 })
