@@ -20,6 +20,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import components.other.CustomProgressDialog;
@@ -137,8 +138,8 @@ public class MusicActivity
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        String currDate = DateFormat.getDateInstance(DateFormat.SHORT).format(c.getTime());
-        date = currDate;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currDate = dateFormat.format(c.getTime());
 
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
         textView.setText(date);
