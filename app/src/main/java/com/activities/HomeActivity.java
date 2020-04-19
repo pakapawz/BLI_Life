@@ -6,6 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import javax.annotation.Nullable;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -14,12 +24,22 @@ public class HomeActivity extends AppCompatActivity {
     private Button otherButton;
     private Button accountButton;
 
+    private TextView greetingMsg;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore fireStore;
+    private  String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         getSupportActionBar().setTitle("Home");
+
+        firebaseAuth     = FirebaseAuth.getInstance();
+        fireStore        = FirebaseFirestore.getInstance();
+        userId           = firebaseAuth.getCurrentUser().getUid();
+        greetingMsg      = findViewById(R.id.textView_greeting1);
 
         shuttleButton = (Button) findViewById(R.id.button_shuttle);
         shuttleButton.setOnClickListener(new View.OnClickListener(){
@@ -52,7 +72,16 @@ public class HomeActivity extends AppCompatActivity {
                 openAccountActivity();
             }
         });
+
+        DocumentReference documentReference = fireStore.collection("users").document(userId);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                greetingMsg.setText("Welcome, " + documentSnapshot.getString("uName"));
+            }
+        });
     }
+
 
     @Override
     public void onBackPressed() {
