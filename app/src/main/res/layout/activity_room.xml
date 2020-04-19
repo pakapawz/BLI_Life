@@ -87,9 +87,12 @@
         android:text="Note:\n Room is only available for\n reservation from 5 p.m.\n to 9 p.m."
         android:textColor="#80000000" />
 
-    <Button
-        android:id="@+id/button_TEST"
+    <TextView
+        android:id="@+id/txt_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="retrieve" />
+        android:text="show history"
+        android:layout_below="@id/textView_warning"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>

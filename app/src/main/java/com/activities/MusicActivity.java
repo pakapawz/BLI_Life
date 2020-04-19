@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
@@ -39,7 +41,13 @@ public class MusicActivity
     private Button reserveButton;
 
     private FirebaseFirestore db;
-    private CollectionReference ref;
+    private CollectionReference musicReservationReference;
+    private FirebaseAuth firebaseAuth;
+    private CollectionReference usersReference;
+
+    private String userId;
+    private String name = "NAME";
+    private String email = "EMAIL@DOMAIN.COM";
 
     private CheckBox keyboardCheckBox;
     private CheckBox guitarCheckBox;
@@ -72,7 +80,10 @@ public class MusicActivity
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("MusicReservation");
+        musicReservationReference = db.collection("RoomReservation");
+        usersReference = db.collection("users");
+
+        userId = firebaseAuth.getInstance().getCurrentUser().getUid();
 
         keyboardCheckBox = (CheckBox)findViewById(R.id.checkBox_keyboard);
         keyboardCheckBox.setOnClickListener(new View.OnClickListener() {
@@ -141,13 +152,15 @@ public class MusicActivity
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currDate = dateFormat.format(c.getTime());
 
+        date = currDate;
+
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
         textView.setText(date);
     }
 
     @Override
     public void writeToDatabase(Reservation reservation) {
-        ref.document().set(reservation)
+        musicReservationReference.document().set(reservation)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -166,12 +179,24 @@ public class MusicActivity
                 });
     }
 
+    private void setNameAndEmail(){
+        usersReference.document(userId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        name = documentSnapshot.getString("uName");
+                        email = documentSnapshot.getString("uEmail");
+                    }
+                });
+    }
+
     @Override
     public void reserve() {
         final CustomProgressDialog progressDialog = new CustomProgressDialog(MusicActivity.this);
 
 
-        MusicReservation reservation = new MusicReservation("TEST", "TEST@domain.com", date,
+        MusicReservation reservation = new MusicReservation(name, email, date,
                 keyboard, drumBox, bass, guitar);
 
         if (validateReservation(reservation) == false) return;

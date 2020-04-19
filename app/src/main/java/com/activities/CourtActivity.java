@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
@@ -38,7 +40,13 @@ public class CourtActivity
     private Button reserveButton;
 
     private FirebaseFirestore db;
-    private CollectionReference ref;
+    private CollectionReference courtReservationReference;
+    private FirebaseAuth firebaseAuth;
+    private CollectionReference usersReference;
+
+    private String userId;
+    private String name = "NAME";
+    private String email = "EMAIL@DOMAIN.COM";
 
     private String date = "(choose date)";
 
@@ -52,7 +60,10 @@ public class CourtActivity
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        ref = db.collection("CourtReservation");
+        courtReservationReference = db.collection("CourtReservation");
+        usersReference = db.collection("users");
+
+        userId = firebaseAuth.getInstance().getCurrentUser().getUid();
 
         datePickButton = (Button)findViewById(R.id.button_date);
         datePickButton.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +92,8 @@ public class CourtActivity
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String currDate = dateFormat.format(c.getTime());
+
+        date = currDate;
 
         TextView textView = (TextView) findViewById(R.id.textView_dateChosen);
         textView.setText(date);
@@ -115,7 +128,7 @@ public class CourtActivity
 
     @Override
     public void writeToDatabase(final Reservation reservation) {
-        ref.document().set(reservation)
+        courtReservationReference.document().set(reservation)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -134,11 +147,24 @@ public class CourtActivity
                 });
     }
 
+    private void setNameAndEmail(){
+        usersReference.document(userId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        name = documentSnapshot.getString("uName");
+                        email = documentSnapshot.getString("uEmail");
+                    }
+                });
+    }
+
     @Override
     public void reserve() {
         final CustomProgressDialog progressDialog = new CustomProgressDialog(CourtActivity.this);
 
-        CourtReservation reservation = new CourtReservation("USER", "USER@DOMAIN.COM", date);
+        setNameAndEmail();
+        CourtReservation reservation = new CourtReservation(name, email, date);
 
         if (validateReservation(reservation) == false) return;
 
