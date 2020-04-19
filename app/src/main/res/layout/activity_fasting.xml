@@ -6,23 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".FastingActivity">
 
-    <CalendarView
-        android:background="@drawable/calender_background"
-        android:id = "@+id/calender_fasting"
+    <TextView
+        android:id="@+id/textView_chooseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true" />
+        android:text="Choose Date"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="20dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/textView_dateChosen"
+        android:layout_width="200dp"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="30dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/textView_chooseDate"
+        android:text="(choose date)"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
-        android:id="@+id/button_fasting"
+        android:id="@+id/button_date"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/textView_dateChosen"
+        android:layout_alignLeft="@+id/textView_dateChosen"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_rounded_accent"
+        android:text="choose date"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/button_reserve"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_dateChosen"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/button_rounded_green"
+        android:text="Reserve"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textView_warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_rounded_blue"
+        android:text="this action cannot be undone"
+        android:layout_below="@id/button_reserve"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="500dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="Save Date" />
+        android:textColor="#F44336" />
 
 </RelativeLayout>
