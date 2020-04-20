@@ -51,11 +51,24 @@
             android:textStyle="bold"
             tools:text="Username" />
 
+        <EditText
+            android:id="@+id/editText_editUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/textView_ProfileUsername"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Edit your username"/>
+
+
         <TextView
             android:id="@+id/textView_ProfileEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textView_ProfileUsername"
+            android:layout_below="@id/editText_editUsername"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="10dp"
@@ -87,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_ProfileClass"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="175dp"
+            android:layout_marginTop="150dp"
             android:background="@drawable/button_rounded_green"
             android:text="Save Changes"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -121,7 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_userAccount"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="280dp"
+            android:layout_marginTop="320dp"
             android:text="Email is not verified."
             android:textAlignment="center"
             android:textColor="#F44336"
@@ -147,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_VerifyMsg"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/button_rounded_green"
             android:text="Verify Now"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
