@@ -21,15 +21,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -47,9 +44,7 @@ public class RoomActivity
 
     private Button datePickButton;
     private Button reserveButton;
-
-    //TODO
-    private Button testButton;
+    private TextView showHistory;
 
     private Spinner roomSpinner;
     private String name = "NAME";
@@ -110,9 +105,8 @@ public class RoomActivity
             }
         });
 
-        //TODO
-        testButton = (Button) findViewById(R.id.button_TEST);
-        testButton.setOnClickListener(new View.OnClickListener() {
+        showHistory = (TextView) findViewById(R.id.txt_history);
+        showHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToRetrieve();
@@ -121,12 +115,11 @@ public class RoomActivity
     }
 
     private void goToRetrieve(){
-        Intent intent = new Intent(this, RetrieveTestActivity.class);
+        Intent intent = new Intent(this, roomHistoryActivity.class);
         startActivity(intent);
     }
 
     private void setNameAndEmail(){
-        testButton.setText(userId);
         usersReference.document(userId)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -185,7 +178,6 @@ public class RoomActivity
 
     @Override
     public boolean checkAvailability(Reservation reservation) {
-        //TODO
         isAvailable = true;
         roomReservationReference
                 .whereEqualTo("date", reservation.getDate())
