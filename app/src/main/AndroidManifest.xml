@@ -11,11 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CourtHistoryActivity"
+
+        <activity
+            android:name=".CourtHistoryActivity"
             android:parentActivityName=".CourtActivity"/>
-        <activity android:name=".MusicHistoryActivity"
+        <activity
+            android:name=".MusicHistoryActivity"
             android:parentActivityName=".MusicActivity"/>
-        <activity android:name=".roomHistoryActivity"
+        <activity
+            android:name=".roomHistoryActivity"
             android:parentActivityName=".RoomActivity"/>
         <activity
             android:name=".MusicActivity"
@@ -38,7 +42,8 @@
         <activity
             android:name=".ShuttleActivity"
             android:parentActivityName=".HomeActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".HomeActivity" />
         <activity
             android:name=".SignUpActivity"
             android:parentActivityName=".MainActivity" />
@@ -48,10 +53,10 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
