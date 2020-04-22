@@ -158,9 +158,9 @@ public class SignInActivity extends AppCompatActivity {
 
     }
 
-    //to prevent go back to before activity, after logout.
     @Override
     public void onBackPressed() {
-        moveTaskToBack(false);
+        startActivity(new Intent(SignInActivity.this, MainActivity.class));
+        finish();
     }
 }

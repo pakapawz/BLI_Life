@@ -139,9 +139,12 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
     public void updateUsername() {
         editUsername = editUname.getText().toString().trim();
         if(validateUsername(editUsername) == false) return;
+        progressUpdating.setMessage("Please wait ...");
+        progressUpdating.show();
         userId = firebaseAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fireStore.collection("users").document(userId);
         documentReference.update("uName", editUsername);
+        startActivity(new Intent(getApplicationContext(),AccountActivity.class));
     }
 
     public void logout(){
@@ -157,10 +160,11 @@ public class AccountActivity extends AppCompatActivity implements View.OnClickLi
         }
         if(view == buttonsaveChanges){
             updateUsername();
-            progressUpdating.setMessage("Please wait ...");
-            progressUpdating.show();
-            startActivity(new Intent(getApplicationContext(),AccountActivity.class));
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AccountActivity.this, HomeActivity.class));
+    }
 }
