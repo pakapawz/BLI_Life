@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -38,6 +41,7 @@ public class CourtActivity
 
     private Button datePickButton;
     private Button reserveButton;
+    private TextView showHistory;
 
     private FirebaseFirestore db;
     private CollectionReference courtReservationReference;
@@ -49,6 +53,7 @@ public class CourtActivity
     private String email = "EMAIL@DOMAIN.COM";
 
     private String date = "(choose date)";
+    boolean isAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,20 @@ public class CourtActivity
                 reserve();
             }
         });
+
+
+        showHistory = (TextView) findViewById(R.id.txt_history);
+        showHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRetrieve();
+            }
+        });
+    }
+
+    private void goToRetrieve(){
+        Intent intent = new Intent(this, CourtHistoryActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -114,10 +133,26 @@ public class CourtActivity
         return true;
     }
 
+
     @Override
     public boolean checkAvailability(Reservation reservation) {
-        //TODO
-        return true;
+        isAvailable = true;
+        courtReservationReference
+                .whereEqualTo("date", reservation.getDate())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        //if this loop runs, there exists a reservation for the same date
+                        for (QueryDocumentSnapshot queryDocumentSnapshot: queryDocumentSnapshots){
+                            isAvailable = false;
+                            if (isAvailable == false) break;
+                        }
+                    }
+                });
+
+        return isAvailable;
     }
 
     @Override
@@ -133,7 +168,7 @@ public class CourtActivity
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(CourtActivity.this,
-                                "The sports court of BLI is now reserved on " + date + " under the name " + "NAME",
+                                "The sports court of BLI is now reserved on " + date + " under the name " + name,
                                 Toast.LENGTH_LONG).show();
                     }
                 })

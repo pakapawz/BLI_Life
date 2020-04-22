@@ -16,35 +16,37 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import components.reservations.CourtReservation;
+import components.reservations.MusicReservation;
 import components.reservations.RoomReservation;
 
-public class roomHistoryActivity extends AppCompatActivity {
+public class MusicHistoryActivity extends AppCompatActivity {
 
     private TextView historyTxt;
 
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
-    private CollectionReference roomReservationReference;
+    private CollectionReference musicReservationReference;
     private CollectionReference usersReference;
 
     private String userId;
     private String name = "NAME";
     private String email = "EMAIL@DOMAIN.COM";
-    private RoomReservation holder;
+    private MusicReservation holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_room_history);
+        setContentView(R.layout.activity_music_history);
 
         historyTxt = findViewById(R.id.txt_history);
 
-        getSupportActionBar().setTitle("History (Room Reservation)");
+        getSupportActionBar().setTitle("History (Music Reservation)");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        roomReservationReference = db.collection("RoomReservation");
+        musicReservationReference = db.collection("MusicReservation");
         usersReference = db.collection("users");
         userId = firebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -67,32 +69,38 @@ public class roomHistoryActivity extends AppCompatActivity {
                     }
                 });
     }
-    
+
     private void showHistory(){
-        roomReservationReference
+        musicReservationReference
                 .whereEqualTo("email", email)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         String temp = "====================" +
-                                      "\nReservation history for " + name + " with email " + email +
-                                      "\n====================\n";
+                                "\nReservation history for " + name + " with email " + email +
+                                "\n====================\n";
                         int no = 1;
 
                         for (QueryDocumentSnapshot q: queryDocumentSnapshots) {
                             temp += "\nReservation #" + no;
 
-                            holder = q.toObject(RoomReservation.class);
+                            holder = q.toObject(MusicReservation.class);
 
                             temp += "\nCreated on : " + holder.getCreationDate();
-                            temp += "\nRoom No.   : " + holder.getRoomNo();
-                            temp += "\nFor date     : " + holder.getDate();
+                            temp += "\nFor date   : " + holder.getDate();
+                            temp += "\nInstruments: ";
+
+                            if (holder.isKeyboard()) temp += "keyboard, ";
+                            if (holder.isBass()) temp += "bass, ";
+                            if (holder.isGuitar()) temp += "guitar, ";
+                            if (holder.isDrumBox()) temp += "drum box, ";
                             temp += "\n";
                             no++;
                         }
 
                         historyTxt.setText(temp);
+//                        historyTxt.setText("COMPLETE");
                     }
                 });
     }

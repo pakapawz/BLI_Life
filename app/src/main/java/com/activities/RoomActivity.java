@@ -178,7 +178,6 @@ public class RoomActivity
 
     @Override
     public boolean checkAvailability(Reservation reservation) {
-        //TODO
         isAvailable = true;
         roomReservationReference
                 .whereEqualTo("date", reservation.getDate())

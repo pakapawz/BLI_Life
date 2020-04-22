@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -39,6 +42,7 @@ public class MusicActivity
 
     private Button datePickButton;
     private Button reserveButton;
+    private TextView showHistory;
 
     private FirebaseFirestore db;
     private CollectionReference musicReservationReference;
@@ -60,6 +64,12 @@ public class MusicActivity
     private boolean bass     = false;
 
     private String date = "(choose date)";
+    private boolean isAvailable;
+
+    private void goToRetrieve(){
+        Intent intent = new Intent(this, MusicHistoryActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +90,7 @@ public class MusicActivity
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        musicReservationReference = db.collection("RoomReservation");
+        musicReservationReference = db.collection("MusicReservation");
         usersReference = db.collection("users");
 
         userId = firebaseAuth.getInstance().getCurrentUser().getUid();
@@ -140,6 +150,14 @@ public class MusicActivity
                 reserve();
             }
         });
+
+        showHistory = (TextView) findViewById(R.id.txt_history);
+        showHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToRetrieve();
+            }
+        });
     }
 
     @Override
@@ -159,13 +177,13 @@ public class MusicActivity
     }
 
     @Override
-    public void writeToDatabase(Reservation reservation) {
+    public void writeToDatabase(final Reservation reservation) {
         musicReservationReference.document().set(reservation)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(MusicActivity.this,
-                                "Musical instruments are now reserved on " + date + " under the name " + "NAME",
+                                "Musical instruments are now reserved on " + date + " under the name " + name,
                                 Toast.LENGTH_LONG).show();
                     }
                 })
@@ -195,7 +213,7 @@ public class MusicActivity
     public void reserve() {
         final CustomProgressDialog progressDialog = new CustomProgressDialog(MusicActivity.this);
 
-
+        setNameAndEmail();
         MusicReservation reservation = new MusicReservation(name, email, date,
                 keyboard, drumBox, bass, guitar);
 
@@ -238,7 +256,23 @@ public class MusicActivity
 
     @Override
     public boolean checkAvailability(Reservation reservation) {
-        return true;
+        isAvailable = true;
+        musicReservationReference
+                .whereEqualTo("date", reservation.getDate())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                        //if this loop runs, there exists a reservation for the same date
+                        for (QueryDocumentSnapshot queryDocumentSnapshot: queryDocumentSnapshots){
+                            isAvailable = false;
+                            if (isAvailable == false) break;
+                        }
+                    }
+                });
+
+        return isAvailable;
     }
 
     @Override
