@@ -39,6 +39,7 @@ public class SignInActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Sign In");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         editEmail      = findViewById(R.id.editText_email);
         editPassword   = findViewById(R.id.editText_password);
         signInButton   = (Button) findViewById(R.id.button_signIn);
