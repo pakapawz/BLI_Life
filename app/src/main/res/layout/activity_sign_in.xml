@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#03A9F4">
+    android:background="@drawable/background_gradient_list">
     tools:context=".SignInActivity">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,12 +20,9 @@
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.125
-        app:srcCompat="@mipmap/ic_launcher_foreground"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"/>
 
     <Button
         android:id="@+id/button_signIn"
@@ -34,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_password"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
         android:background="@drawable/button_rounded_accent"
         android:text="Sign In"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -52,8 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imageView_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:ems="10"
@@ -77,7 +70,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/editText_email"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
         android:background="#40000000"
