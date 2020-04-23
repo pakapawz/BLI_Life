@@ -22,13 +22,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="VectorDrawableCompat"/>
+        app:layout_constraintVertical_bias="0.125"
+
+        app:srcCompat="@mipmap/ic_launcher_foreground"
+        tools:ignore="VectorDrawableCompat" />
 
     <Button
         android:id="@+id/button_signIn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_password"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/button_rounded_accent"
         android:text="Sign In"
