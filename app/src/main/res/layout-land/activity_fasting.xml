@@ -1,65 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FastingActivity">
+    android:id="@+id/layout"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView_chooseDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose Date"
-        android:layout_marginTop="250dp"
-        android:layout_marginLeft="20dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="150dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_dateChosen"
         android:layout_width="200dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="70dp"
         android:layout_marginLeft="30dp"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal ="true"
-        android:layout_toEndOf="@+id/textView_chooseDate"
         android:text="(choose date)"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toEndOf="@+id/textView_chooseDate"
+        tools:ignore="NotSibling"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button_date"
         android:layout_width="150dp"
-        android:layout_height="20dp"
-        android:layout_below="@id/textView_dateChosen"
-        android:layout_alignLeft="@+id/textView_dateChosen"
-        android:layout_centerHorizontal="true"
+        android:layout_height="30dp"
         android:background="@drawable/button_rounded_accent"
         android:text="choose date"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+
+        app:layout_constraintLeft_toLeftOf="@+id/textView_dateChosen"
+        app:layout_constraintTop_toBottomOf="@+id/textView_dateChosen" />
 
     <Button
         android:id="@+id/button_reserve"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView_dateChosen"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
+        android:layout_marginLeft="210dp"
         android:background="@drawable/button_rounded_green"
         android:text="Reserve"
         android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textView_warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="this action cannot be undone"
         android:layout_below="@id/button_reserve"
-        android:layout_centerHorizontal="true"
-        android:textColor="#F44336" />
+        android:text="this action cannot be undone"
+        android:textColor="#F44336"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txt_history"
@@ -67,9 +76,10 @@
         android:layout_height="wrap_content"
         android:text="show history"
         android:layout_below="@id/textView_warning"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginTop="230dp"
+        android:layout_marginLeft="280dp"
+        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
