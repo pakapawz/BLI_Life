@@ -53,7 +53,7 @@ public class CourtActivity
     private String email = "EMAIL@DOMAIN.COM";
 
     private String date = "(choose date)";
-    boolean isAvailable;
+    private boolean isAvailable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

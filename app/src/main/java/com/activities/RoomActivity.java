@@ -52,7 +52,7 @@ public class RoomActivity
     private String date = "(choose date)";
     private String roomNo = "(choose room)";
 
-    private ProgressDialog writeProgess;
+    private ProgressDialog writeProgress;
 
     private FirebaseFirestore db;
     private CollectionReference roomReservationReference;
@@ -85,7 +85,7 @@ public class RoomActivity
         roomSpinner.setOnItemSelectedListener(this);
 
         //setting up progress dialog
-        writeProgess = new ProgressDialog(this);
+        writeProgress = new ProgressDialog(this);
 
         //setting up buttons
         datePickButton = (Button)findViewById(R.id.button_date);
@@ -208,10 +208,10 @@ public class RoomActivity
     public void reserve(){
         final CustomProgressDialog progressDialog = new CustomProgressDialog(RoomActivity.this);
 
-        setNameAndEmail();
         RoomReservation reservation = new RoomReservation(name, email, date, roomNo);
-
         if (validateReservation(reservation) == false) return;
+
+        setNameAndEmail();
 
         progressDialog.startDialog();
         Handler handler = new Handler();
