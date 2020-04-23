@@ -13,6 +13,12 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".ShuttleHistoryActivity"
+            android:parentActivityName=".ShuttleActivity"/>
+        <activity
+            android:name=".FastingHistoryActivity"
+            android:parentActivityName=".FastingActivity"/>
+        <activity
             android:name=".CourtHistoryActivity"
             android:parentActivityName=".CourtActivity"/>
         <activity

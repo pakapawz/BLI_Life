@@ -13,42 +13,42 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import components.reservations.CourtReservation;
+import components.reservations.ShuttleReservation;
 
-public class CourtHistoryActivity extends AppCompatActivity {
+public class ShuttleHistoryActivity extends AppCompatActivity {
 
     private TextView historyTxt;
 
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
-    private CollectionReference courtReservationReference;
+    private CollectionReference shuttleReservationReference;
     private CollectionReference usersReference;
 
     private String userId;
     private String name = "NAME";
     private String email = "EMAIL@DOMAIN.COM";
-    private CourtReservation holder;
+    private ShuttleReservation holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_court_history);
+        setContentView(R.layout.activity_shuttle_history);
 
         historyTxt = findViewById(R.id.txt_history);
 
-        getSupportActionBar().setTitle("History (Court Reservation)");
+        getSupportActionBar().setTitle("History (Shuttle Reservation)");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        courtReservationReference = db.collection("CourtReservation");
+        shuttleReservationReference = db.collection("ShuttleReservation");
         usersReference = db.collection("users");
         userId = firebaseAuth.getInstance().getCurrentUser().getUid();
 
         getHistory();
     }
 
-    private void getHistory() {
+    private void getHistory(){
         setNameAndEmail();
         showHistory();
     }
@@ -65,8 +65,8 @@ public class CourtHistoryActivity extends AppCompatActivity {
                 });
     }
 
-    private void showHistory(){
-        courtReservationReference
+    private void showHistory() {
+        shuttleReservationReference
                 .whereEqualTo("email", email)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -77,19 +77,25 @@ public class CourtHistoryActivity extends AppCompatActivity {
                                 "\n====================\n";
                         int no = 1;
 
-                        for (QueryDocumentSnapshot q: queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
                             temp += "\nReservation #" + no;
 
-                            holder = q.toObject(CourtReservation.class);
+                            holder = q.toObject(ShuttleReservation.class);
 
                             temp += "\nCreated on : " + holder.getCreationDate();
-                            temp += "\nFor date     : " + holder.getDate();
+                            temp += "\nFor date   : " + holder.getDate();
+                            temp += "\nDestination: ";
+
+                            if (holder.isFromBLI()) temp += "From BLI, ";
+                            if (holder.isToBLI()) temp += "To BLI, ";
                             temp += "\n";
                             no++;
                         }
 
                         historyTxt.setText(temp);
+//                        historyTxt.setText("COMPLETE");
                     }
                 });
     }
 }
+

@@ -1,6 +1,7 @@
 package components.reservations;
 
 public class ShuttleReservation extends Reservation {
+
     private boolean toBLI = false;
     private boolean fromBLI = false;
 

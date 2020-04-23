@@ -1,9 +1,5 @@
 package com.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +11,10 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,16 +24,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import components.other.CustomProgressDialog;
 import components.other.InvalidReservationDialog;
-import components.reservations.interfaces.Idatabase;
-import components.reservations.interfaces.Ivalidations;
 import components.reservations.MusicReservation;
 import components.reservations.Reservation;
+import components.reservations.interfaces.Idatabase;
+import components.reservations.interfaces.Ivalidations;
 
 public class MusicActivity
         extends AppCompatActivity

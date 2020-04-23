@@ -13,35 +13,35 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import components.reservations.CourtReservation;
+import components.reservations.FastingReservation;
 
-public class CourtHistoryActivity extends AppCompatActivity {
+public class FastingHistoryActivity extends AppCompatActivity {
 
     private TextView historyTxt;
 
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
-    private CollectionReference courtReservationReference;
+    private CollectionReference fastingReservationReference;
     private CollectionReference usersReference;
 
     private String userId;
     private String name = "NAME";
     private String email = "EMAIL@DOMAIN.COM";
-    private CourtReservation holder;
+    private FastingReservation holder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_court_history);
+        setContentView(R.layout.activity_fasting_history);
 
         historyTxt = findViewById(R.id.txt_history);
 
-        getSupportActionBar().setTitle("History (Court Reservation)");
+        getSupportActionBar().setTitle("History (Fasting Reservation)");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //setting up database
         db = FirebaseFirestore.getInstance();
-        courtReservationReference = db.collection("CourtReservation");
+        fastingReservationReference = db.collection("FastingReservation");
         usersReference = db.collection("users");
         userId = firebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -66,7 +66,7 @@ public class CourtHistoryActivity extends AppCompatActivity {
     }
 
     private void showHistory(){
-        courtReservationReference
+        fastingReservationReference
                 .whereEqualTo("email", email)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -77,10 +77,10 @@ public class CourtHistoryActivity extends AppCompatActivity {
                                 "\n====================\n";
                         int no = 1;
 
-                        for (QueryDocumentSnapshot q: queryDocumentSnapshots) {
+                        for(QueryDocumentSnapshot q: queryDocumentSnapshots) {
                             temp += "\nReservation #" + no;
 
-                            holder = q.toObject(CourtReservation.class);
+                            holder = q.toObject(FastingReservation.class);
 
                             temp += "\nCreated on : " + holder.getCreationDate();
                             temp += "\nFor date     : " + holder.getDate();
