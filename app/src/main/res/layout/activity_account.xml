@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C5DEF3"
+    android:background="@drawable/background_gradient_list"
     tools:context=".AccountActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#C5DEF3">
+        android:background="@drawable/background_gradient_list">
 
         <TextView
             android:id="@+id/textView_userAccount"
@@ -21,7 +21,7 @@
             android:layout_marginTop="20dp"
             android:textAlignment="textStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
             android:textSize="40dp"
             android:textStyle="bold"
             tools:text="Your Account" />
@@ -46,7 +46,7 @@
             android:layout_marginTop="10dp"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#FFFFFF"
             android:textSize="30dp"
             android:textStyle="bold"
             tools:text="Username" />
@@ -60,7 +60,9 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:background="#1AFFFFFF"
             android:inputType="textPersonName"
+            android:textColor="#FFFFFF"
             android:hint="Edit your username"/>
 
 
@@ -74,7 +76,7 @@
             android:layout_marginTop="10dp"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFFFFF"
             android:textSize="20dp"
             android:textStyle="bold"
             tools:text="Email" />
@@ -89,7 +91,7 @@
             android:layout_marginTop="10dp"
             android:textAlignment="viewStart"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@color/colorPrimary"
+            android:textColor="#FFFFFF"
             android:textSize="20dp"
             android:textStyle="bold"
             tools:text="Class" />
@@ -146,8 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_VerifyMsg"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="320dp"
+            android:layout_marginTop="427dp"
             android:text="Email is Verified."
             android:textAlignment="center"
             android:textColor="#4CAF50"
@@ -156,15 +157,15 @@
 
         <Button
             android:id="@+id/button_verifyNow"
-            android:layout_width="223dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView_VerifyMsg"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/button_rounded_green"
+            android:background="#40000000"
             android:text="Verify Now"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="#80FFFFFF"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
