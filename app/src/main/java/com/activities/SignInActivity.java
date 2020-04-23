@@ -41,12 +41,6 @@ public class SignInActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Sign In");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(10);
-        animationDrawable.setExitFadeDuration(3000);
-        animationDrawable.start();
-
         editEmail      = findViewById(R.id.editText_email);
         editPassword   = findViewById(R.id.editText_password);
         signInButton   = (Button) findViewById(R.id.button_signIn);
